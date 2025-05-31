@@ -53,7 +53,7 @@ public class RecipeController {
             // If the recipe exists, we return it
             return recipe.get();
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new RecipeNotFoundException();
         }
     }
 
@@ -64,5 +64,21 @@ public class RecipeController {
     void create(@RequestBody Recipe recipe) {
         // This method will add a recipe to the in-memory repository
         recipeRepository.create(recipe);
+    }
+
+    // PUT method to update an existing recipe
+    @ResponseStatus(HttpStatus.NO_CONTENT) // Returns a 204 No Content
+    @PutMapping("/{id}")
+    void update(@PathVariable Integer id, @RequestBody Recipe recipe) {
+        // Calls update method in the repository to update the recipe with the given ID
+        recipeRepository.update(id, recipe);
+    }
+
+    // DELETE method to delete a recipe by ID
+    @ResponseStatus(HttpStatus.NO_CONTENT) // Returns a 204 No Content
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Integer id) {
+        // Calls the delete method in the repository to remove the recipe with the given ID
+        recipeRepository.delete(id);
     }
 }
