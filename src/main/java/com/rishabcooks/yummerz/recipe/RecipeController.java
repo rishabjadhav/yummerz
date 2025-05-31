@@ -58,6 +58,9 @@ public class RecipeController {
     }
 
     // POST method to create/add a new recipe
+    // The endpoint is "/api/recipes", and it expects a JSON body that matches the Recipe record structure
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED) // Returns a 201 Created rather than a 200 OK
     void create(@RequestBody Recipe recipe) {
         // This method will add a recipe to the in-memory repository
         recipeRepository.create(recipe);

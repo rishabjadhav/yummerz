@@ -34,6 +34,19 @@ public class RecipeRepository {
         recipes.add(recipe);
     }
 
+    void update (Integer id, Recipe recipe) {
+        // Sets rec into an optional, in case it doesn't exist
+        Optional<Recipe> rec = findByID(id);
+        // If the recipe exists, we update it with the new recipe
+        if (rec.isPresent()) {
+            recipes.set(recipes.indexOf(rec.get()), recipe);
+        }
+    }
+
+    void delete(Integer id) {
+        recipes.removeIf(recipe -> recipe.id().equals(id));
+    }
+
     @PostConstruct
     public void init() {
         recipes.add(new Recipe(
