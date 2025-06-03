@@ -1,5 +1,6 @@
 package com.rishabcooks.yummerz.recipe;
 
+import jakarta.validation.Valid;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -61,7 +62,7 @@ public class RecipeController {
     // The endpoint is "/api/recipes", and it expects a JSON body that matches the Recipe record structure
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED) // Returns a 201 Created rather than a 200 OK
-    void create(@RequestBody Recipe recipe) {
+    void create(@Valid  @RequestBody Recipe recipe) {
         // This method will add a recipe to the in-memory repository
         recipeRepository.create(recipe);
     }
@@ -69,7 +70,7 @@ public class RecipeController {
     // PUT method to update an existing recipe
     @ResponseStatus(HttpStatus.NO_CONTENT) // Returns a 204 No Content
     @PutMapping("/{id}")
-    void update(@PathVariable Integer id, @RequestBody Recipe recipe) {
+    void update(@Valid @PathVariable Integer id, @RequestBody Recipe recipe) {
         // Calls update method in the repository to update the recipe with the given ID
         recipeRepository.update(id, recipe);
     }
